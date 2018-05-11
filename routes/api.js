@@ -13,6 +13,25 @@ router.get('/:resource', function(req, res){
 	})
 })
 
+router.post('/signup', function(req, res){
+	
+	turbo.createUser(req.body)
+	.then(data => {
+		res.json({
+			confirmation: 'success',
+			data: data
+		})
+	})
+	.catch(err => {
+		res.json({
+			confirmation: 'fail',
+			message: err.message
+		})
+	})
+
+
+})
+
 router.get('/:resource/:id', function(req, res){
 	res.json({
 		confirmation: 'success',
