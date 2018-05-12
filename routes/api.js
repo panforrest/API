@@ -13,8 +13,7 @@ router.get('/:resource', function(req, res){
 	})
 })
 
-router.post('/signup', function(req, res){
-	
+router.post('/signup', function(req, res){	
 	turbo.createUser(req.body)
 	.then(data => {
 		res.json({
@@ -28,8 +27,47 @@ router.post('/signup', function(req, res){
 			message: err.message
 		})
 	})
+})
 
+router.post('/login', function(req, res){	
+	console.log(JSON.stringify(req.body))
+	turbo.login(req.body)
 
+	.then(data => {
+		res.json({
+			confirmation: 'success',
+			data: data
+		})
+	})
+	.catch(err => {
+		res.json({
+			confirmation: 'fail',
+			message: err.message
+		})
+	})
+})
+
+router.post("/users/:id/photo", function(req, res){	
+	// const userId = req.params.id;
+	// console.log("A")
+	const userId = req.params.id;
+	// console.log(req.params);
+	// console.log(userId);
+	console.log(req.params);
+	// console.log(req)
+	// console.log(req.body)
+	const myPhoto = {
+		url: req.body.imageUrl,
+		user: req.params.id,
+	};
+	turbo
+	.create("photo", myPhoto)
+	.then(resp => {
+		console.log(resp);
+	})
+	.catch(err => {
+		console.log(err);
+	})
 })
 
 router.get('/:resource/:id', function(req, res){
