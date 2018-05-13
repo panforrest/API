@@ -5,9 +5,18 @@ const router = vertex.router()
 
 /*  This is a sample API route. */
 
-router.get('/:resource', function(req, res){
-	console.log(req.params.resource)
-	console.log(req.query)
+router.get("/:resource", function(req, res){
+	const { resource } = req.params
+	const { query } = req
+
+    turbo.fetch(resource, query)
+    .then(data=>{
+    	console.log(data);
+    })
+    .catch(err=>{
+    	console.log(err);
+    })
+
 	res.json({
 		confirmation: 'success',
 		resource: req.params.resource,
