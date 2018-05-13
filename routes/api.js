@@ -6,6 +6,8 @@ const router = vertex.router()
 /*  This is a sample API route. */
 
 router.get('/:resource', function(req, res){
+	console.log(req.params.resource)
+	console.log(req.query)
 	res.json({
 		confirmation: 'success',
 		resource: req.params.resource,
