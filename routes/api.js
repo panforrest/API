@@ -74,13 +74,21 @@ router.post("/users/:id/photo", function(req, res){
 		user: req.params.id,
 	};
 	turbo
-	.create("photo", myPhoto)
-	.then(resp => {
-		console.log(resp);
-	})
-	.catch(err => {
-		console.log(err);
-	})
+		.create("photo", myPhoto)
+		.then(data => {
+		    res.json({
+					confirmation: 'success',
+					data: data,
+			})
+			return
+	    })
+	    .catch(err=>{
+	    	res.json({
+				confirmation: 'fail',
+				message: "Sorry, something went wrong",
+			})
+			return
+	    })	
 })
 
 router.get('/:resource/:id', function(req, res){
