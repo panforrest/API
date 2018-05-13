@@ -10,18 +10,20 @@ router.get("/:resource", function(req, res){
 	const { query } = req
 
     turbo.fetch(resource, query)
-    .then(data=>{
-    	console.log(data);
-    })
-    .catch(err=>{
-    	console.log(err);
-    })
-
-	res.json({
-		confirmation: 'success',
-		resource: req.params.resource,
-		query: req.query // from the url query string
-	})
+	    .then(data=>{
+	    	res.json({
+				confirmation: 'success',
+				data: data,
+				query: req.query  //from the url query string
+			})
+	    })
+	    .catch(err=>{
+	    	res.json({
+				confirmation: 'fail',
+				message: "Sorry, something went wrong",
+			})
+			return
+	    })	
 })
 
 router.post('/signup', function(req, res){	
