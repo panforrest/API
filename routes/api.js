@@ -43,21 +43,23 @@ router.post('/signup', function(req, res){
 })
 
 router.post('/login', function(req, res){	
-	console.log(JSON.stringify(req.body))
-	turbo.login(req.body)
-
-	.then(data => {
+	turbo
+	  .login(req.body)
+	  .then((user) => {
+		return turbo.fetch('photo', {user: user.id})
+	})	
+	  .then(data => {
 		res.json({
 			confirmation: 'success',
 			data: data
 		})
-	})
-	.catch(err => {
+	  })
+	  .catch(err => {
 		res.json({
 			confirmation: 'fail',
 			message: err.message
 		})
-	})
+	  })
 })
 
 router.post("/users/:id/photo", function(req, res){	
